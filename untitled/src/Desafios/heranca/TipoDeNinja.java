@@ -1,0 +1,45 @@
+package Desafios.heranca;
+
+import java.util.Scanner;
+
+public class TipoDeNinja extends Ninja{
+
+    String escolhaSeTemHabilidadeEspecial;
+    Scanner lendoDados = new Scanner(System.in);
+
+
+
+    public void confereEscolhaHabilidade(){
+        while (!escolhaSeTemHabilidadeEspecial.equalsIgnoreCase("Sim") && !escolhaSeTemHabilidadeEspecial.equalsIgnoreCase("Nao")) {
+            System.out.println("--------------------------------");
+            System.out.println("Escolha uma opção valida!");
+            System.out.println("Seu ninja tem alguma habilidade especial? (Sim / Não): ");
+            escolhaSeTemHabilidadeEspecial = lendoDados.nextLine();
+            System.out.println("--------------------------------");
+        }
+
+        if (escolhaSeTemHabilidadeEspecial.equalsIgnoreCase("Sim") ){
+            System.out.println("Defina uma habilidade especial");
+            habilidadeEspecial = lendoDados.nextLine();
+        }
+
+    }
+
+    @Override
+    public void mostrarInformacoes() {
+        System.out.println("Nome: " + nome);
+        System.out.println("Idade: " + idade);
+        System.out.println("Missao: " + missao);
+        System.out.println("Nivel de dificuldade: " + nivelDificuldade);
+        System.out.println("Status da missao: " + statusMissao);
+
+        if (habilidadeEspecial != null && !habilidadeEspecial.isEmpty()) {
+            System.out.println("Habilidade especial: " + habilidadeEspecial);
+        } else {
+            System.out.println("Ninja sem habilidade especial");
+        }
+    }
+
+
+
+}

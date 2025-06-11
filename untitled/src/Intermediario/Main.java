@@ -1,0 +1,51 @@
+package Intermediario;
+
+
+
+public class Main {
+    public static void main(String[] args) {
+
+
+     ProgramadorJava programadorJava1 = new ProgramadorJava("Allan", 32);
+       programadorJava1.dizendoLinguagem();
+       programadorJava1.dizendoSeEstaEmpregado();
+       programadorJava1.habilidadeEspecial();
+
+       System.out.println("------------------");
+       ProgramadorJava programadorJava2 = new ProgramadorJava(3, Senioridade.JUNIOR, "Theo", 19);
+       System.out.println(programadorJava2.senioridade);
+
+
+       System.out.println("------------------");
+
+       ProgramadorJS programadorJS = new ProgramadorJS("Jose", 2);
+       programadorJS.dizendoLinguagem();
+       programadorJS.dizendoSeEstaEmpregado();
+       programadorJS.habilidadeFontEnd();
+
+       System.out.println("------------------");
+
+       ProgramadorPyton programadorPyton = new ProgramadorPyton("Pedro", 18);
+       programadorPyton.dizendoLinguagem();
+       programadorPyton.dizendoSeEstaEmpregado();
+
+
+
+       System.out.println("------------------");
+
+       ProgramadorFullStack programadorFullStack =new ProgramadorFullStack("Melhor", 19);
+       programadorFullStack.apresentando();
+       programadorFullStack.habilidadeEspecial();
+       programadorFullStack.habilidadeFontEnd();
+       programadorFullStack.tempoQueEstaDesempregado(6);
+
+
+
+
+
+
+
+
+    }
+}
+

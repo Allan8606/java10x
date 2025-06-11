@@ -1,0 +1,117 @@
+package Desafios.heranca;
+
+import java.util.Scanner;
+
+public class Ninja {
+    String nome;
+    int idade = 0;
+    boolean entradaValida = false;
+    String missao;
+    String nivelDificuldade;
+    String statusMissao;
+    String habilidadeEspecial;
+
+    Scanner lendoDados = new Scanner(System.in);
+
+
+    public void confereNome(Ninja ninja){
+        while (nome.isEmpty()){
+            System.out.println("Digite um nome valido");
+            System.out.println("---------------------------------");
+            System.out.println("Qual o nome do seu ninja: ");
+            ninja.nome = lendoDados.nextLine();
+        }
+        if (ninja.nome.equalsIgnoreCase("sair")){
+            System.out.println("Saindo...");
+            System.exit(0);
+        }
+    }
+    public void confereMissao(Ninja ninja){
+        while (missao.isEmpty()){
+            System.out.println("Digite um nome valido");
+            System.out.println("---------------------------------");
+            System.out.println("Qual o status da missão do seu ninja: ");
+            ninja.missao = lendoDados.nextLine();
+        }
+        if (ninja.missao.equalsIgnoreCase("sair")){
+            System.out.println("Saindo...");
+            System.exit(0);
+        }
+    }
+
+    public void confereNivelDificuldade(Ninja ninja){
+        while (nivelDificuldade.isEmpty()){
+            System.out.println("Digite um nome valido");
+            System.out.println("---------------------------------");
+            System.out.println("Qual o nivel de dificuldade da missão: ");
+            ninja.nivelDificuldade = lendoDados.nextLine();
+        }
+        if (ninja.nivelDificuldade.equalsIgnoreCase("sair")){
+            System.out.println("Saindo...");
+            System.exit(0);
+        }
+    }
+
+    public void confereStatus(Ninja ninja){
+        while (statusMissao.isEmpty()){
+            System.out.println("Digite um nome valido");
+            System.out.println("---------------------------------");
+            System.out.println("Qual o status da missão do seu ninja: ");
+            ninja.statusMissao = lendoDados.nextLine();
+        }
+        if (ninja.statusMissao.equalsIgnoreCase("sair")){
+            System.out.println("Saindo...");
+            System.exit(0);
+        }
+    }
+
+
+    public void confereIdade(){
+        while (!entradaValida){
+            System.out.println("Qual a idade do seu ninja: ");
+            String entrada = lendoDados.nextLine();
+
+            try{
+                idade = Integer.parseInt(entrada);
+                entradaValida = true;
+            }catch (NumberFormatException e){
+                System.out.println("Idade inválida!");
+            }
+
+            if (entrada.equalsIgnoreCase("sair")){
+                System.out.println("Saindo...");
+                System.exit(0);
+            }
+        }
+
+
+    }
+
+
+    public void escolha(String escolhaUsuario) {
+        while (!escolhaUsuario.equalsIgnoreCase("Sim") && !escolhaUsuario.equalsIgnoreCase("Nao")) {
+            System.out.println("--------------------------------");
+            System.out.println("Escolha uma opção valida!");
+            System.out.println("Deseja criar um ninja? (Sim - Para criar um ninja / Não - Para sair): ");
+            escolhaUsuario = lendoDados.nextLine();
+            System.out.println("--------------------------------");
+        }
+        if (escolhaUsuario.equalsIgnoreCase("Nao") || escolhaUsuario.equalsIgnoreCase("Não") || escolhaUsuario.equalsIgnoreCase("sair")) {
+            System.out.println("Saindo...");
+            System.exit(0);
+        }
+
+
+    }
+
+
+    public void mostrarInformacoes() {
+        System.out.println("Nome: " + nome);
+        System.out.println("Idade: " + idade);
+        System.out.println("Missao: " + missao);
+        System.out.println("Nivel de dificuldade: " + nivelDificuldade);
+        System.out.println("Status da missao: " + statusMissao);
+        System.out.println("Ninja sem habilidade especial");
+    }
+
+}

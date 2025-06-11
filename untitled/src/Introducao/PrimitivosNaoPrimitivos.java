@@ -1,0 +1,11 @@
+package Introducao;
+
+public class PrimitivosNaoPrimitivos {
+    public static void main(String[] args) {
+        String nome = "Allan";
+        String nomeMaiusculo = nome.toUpperCase();
+        System.out.println(nomeMaiusculo);
+        System.out.println(nome.toLowerCase());
+
+    }
+}

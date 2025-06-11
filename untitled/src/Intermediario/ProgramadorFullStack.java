@@ -1,0 +1,61 @@
+package Intermediario;
+
+public class ProgramadorFullStack extends Programador implements BomEmPOO, BomEmFrontEnd{
+
+
+    public void apresentando(){
+        System.out.println("Eu sou um programador FullStack");
+    }
+
+    public ProgramadorFullStack(String nome, int idade) {
+        super(nome, idade);
+    }
+
+    public ProgramadorFullStack(int anosDeExperiencia, Senioridade senioridade, String nome, int idade) {
+        super(anosDeExperiencia, senioridade, nome, idade);
+    }
+
+    @Override
+    public void dizendoLinguagem() {
+        System.out.println("Eu trabalho com varias linguagens " + "e atualmente sou de " +
+                "senioridade " + senioridade);
+
+    }
+
+    @Override
+    public void dizendoSeEstaEmpregado() {
+        System.out.println("Estou empregado");
+
+    }
+
+    @Override
+    public void habilidadeEspecial() {
+        System.out.println("Eu sou bom em POO");
+
+    }
+
+    @Override
+    public void habilidadeFontEnd() {
+        System.out.println("Eu sou bom em FrontEnd");
+    }
+
+    @Override
+    public void bomEmDesigner() {
+
+    }
+
+    @Override
+    public void bomEmDesigner(String habilidade) {
+
+    }
+
+    @Override
+    public void tempoQueEstaDesempregado() {
+        super.tempoQueEstaDesempregado();
+    }
+
+    @Override
+    public void tempoQueEstaDesempregado(int anosDesempregado) {
+        super.tempoQueEstaDesempregado(anosDesempregado);
+    }
+}
