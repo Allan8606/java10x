@@ -1,7 +1,4 @@
 package Intermediario;
-
-
-
 public class Main {
     public static void main(String[] args) {
 
@@ -34,16 +31,12 @@ public class Main {
        System.out.println("------------------");
 
        ProgramadorFullStack programadorFullStack =new ProgramadorFullStack("Melhor", 19);
+      System.out.println(programadorFullStack);
+      System.out.println(programadorFullStack.nome);
        programadorFullStack.apresentando();
        programadorFullStack.habilidadeEspecial();
        programadorFullStack.habilidadeFontEnd();
        programadorFullStack.tempoQueEstaDesempregado(6);
-
-
-
-
-
-
 
 
     }

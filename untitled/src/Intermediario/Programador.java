@@ -19,10 +19,11 @@ public abstract class Programador implements EmpregadoOuNao {
     //TODO: Sobrecarga do construtor, chamando os novos atributos.
     //Sobrecarga de métodos não precisa redeclarar o construtor, apenas os novos atributos.
     public Programador(int anosDeExperiencia, Senioridade senioridade, String nome, int idade) {
-        this.anosDeExperiencia = anosDeExperiencia;
-        this.senioridade = senioridade;
         this(nome, idade); // Só é preciso refeenciar desa maneira, pois eles já foram declarados acima no primeiro
         // construtor.
+        this.anosDeExperiencia = anosDeExperiencia;
+        this.senioridade = senioridade;
+
     }
 
 
@@ -43,5 +44,10 @@ public abstract class Programador implements EmpregadoOuNao {
     }else {
             System.out.println(" Vocé tem menos de 5 anos de desemprego");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Meu nome é " + nome + ", tenho " + idade;
     }
 }
