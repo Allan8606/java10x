@@ -9,6 +9,7 @@ public class ProgramadorJava extends Programador implements BomEmPOO{
     //Novo construtor atualizado.
 
 
+
     public ProgramadorJava(int anosDeExperiencia, Senioridade senioridade, String nome, int idade) {
         super(anosDeExperiencia, senioridade, nome, idade);
     }
@@ -20,7 +21,7 @@ public class ProgramadorJava extends Programador implements BomEmPOO{
 
     @Override
     public void dizendoLinguagem() {
-        System.out.println("Meu nome é " + nome + " Estou usando JAVA como linguagem " + "e atualmente sou de " +
+        System.out.println("Meu nome é " + getNome() + " Estou usando JAVA como linguagem " + "e atualmente sou de " +
                 "senioridade " + senioridade);
     }
 

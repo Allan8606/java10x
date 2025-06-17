@@ -38,7 +38,7 @@ public abstract class Programador implements EmpregadoOuNao {
 //Construtor
 
 
-    public Programador(String nome, int anosDeExperiencia) {
+    public Programador(Senioridade senioridade, String nome, int anosDeExperiencia, int idade) {
         this.senioridade = senioridade;
         this.nome = nome;
         this.anosDeExperiencia = anosDeExperiencia;

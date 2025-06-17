@@ -4,8 +4,8 @@ public class Main {
 
 
      ProgramadorJava programadorJava1 = new ProgramadorJava("Allan", 32);
-        System.out.println(programadorJava1.getNome()); // Imprime o nome do programador
-        programadorJava1.setNome("Jose Arthur"); //Definindo o nome do programador
+        System.out.println(programadorJava1.getNome());
+        programadorJava1.setNome("Jose Arthur");
         System.out.println(programadorJava1.getNome());
 
 

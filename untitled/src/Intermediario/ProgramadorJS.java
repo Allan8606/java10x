@@ -27,7 +27,7 @@ public class ProgramadorJS extends Programador implements BomEmFrontEnd {
 
     @Override
     public void dizendoLinguagem() {
-        System.out.println("Meu nome é " + nome + " Estou usando Java Script como linguagem " + "e atualmente sou de " +
+        System.out.println("Meu nome é " + getNome() + " Estou usando Java Script como linguagem " + "e atualmente sou de " +
                 "senioridade " + senioridade);
     }
 

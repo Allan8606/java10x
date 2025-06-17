@@ -13,7 +13,7 @@ public class ProgramadorPyton extends Programador {
 
     @Override
     public void dizendoLinguagem() {
-        System.out.println("Meu nome é " + nome + " Estou usando Python como linguagem " + "e atualmente sou de " +
+        System.out.println("Meu nome é " + getNome() + " Estou usando Python como linguagem " + "e atualmente sou de " +
                 "senioridade " + senioridade);
     }
 
