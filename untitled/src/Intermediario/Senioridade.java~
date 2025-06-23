@@ -14,12 +14,4 @@ public enum Senioridade {
         this.descricao = descricao;
         this.anosDeExperiencia = anosDeExperiencia;
     }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public int getAnosDeExperiencia() {
-        return anosDeExperiencia;
-    }
 }

@@ -1,47 +1,22 @@
 package Intermediario;
 
-public class ProgramadorJS extends Programador implements BomEmFrontEnd {
+public class ProgramadorJS extends Programador implements EstaEmpregado{
 
-    public ProgramadorJS(String nome, int idade) {
-        super(nome, idade);
+
+    public ProgramadorJS() {
     }
 
-    public ProgramadorJS(int anosDeExperiencia, Senioridade senioridade, String nome, int idade) {
-        super(anosDeExperiencia, senioridade, nome, idade);
-    }
-
-    @Override
-    public void bomEmDesigner() {
-        System.out.println("Eu sou bom em Designer");
-    }
-    //TODO:Sobrecarga de método
-    @Override
-    public void bomEmDesigner(String habilidade) {
-        if (habilidade == "Ux/UI"){
-            System.out.println("Você é bom em Designer de Ux/UI");
-        }else {
-            System.out.println("Eu sou bom em Designer");
-        }
+    public ProgramadorJS(Senioridade senioridade, String nome, int anosDeExperiencia, int idade) {
+        super(senioridade, nome, anosDeExperiencia, idade);
     }
 
 
-    @Override
-    public void dizendoLinguagem() {
-        System.out.println("Meu nome é " + getNome() + " Estou usando Java Script como linguagem " + "e atualmente sou de " +
-                "senioridade " + senioridade);
-    }
-
+    /*
+    * Método:
+    * Implementa a Interface EstaEmpregado
+    * */
     @Override
     public void dizendoSeEstaEmpregado() {
-        System.out.println("Estou empregado");
+        System.out.println("Sim, estou empregado como Programador JS");
     }
-
-
-    @Override
-    public void habilidadeFontEnd() {
-        System.out.println("Eu sou bom em FrontEnd");
-
-    }
-
-
 }

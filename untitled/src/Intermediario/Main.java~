@@ -1,13 +1,51 @@
 package Intermediario;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
 
+        System.out.println("______________ ProgramadorJAVA ________________");
 
-     ProgramadorJava programadorJava1 = new ProgramadorJava("Allan", 32);
-        System.out.println(programadorJava1.getNome());
-        programadorJava1.setNome("Jose Arthur");
-        System.out.println(programadorJava1.getNome());
 
+        ProgramadorJava programadorJava1 = new ProgramadorJava(Senioridade.JUNIOR, "Jose Arthur", 2, 18);
+        System.out.println(programadorJava1.getNome()); // Imprime o nome do programador
+        programadorJava1.setNome("Jose Arthur"); //Definindo o nome do programador
+        System.out.println(programadorJava1.getNome());
+        programadorJava1.dizendoSenioridade();
+
+
+        System.out.println("______________ ProgramadorJS ________________");
+
+
+        ProgramadorJS programadorJS1 = new ProgramadorJS(Senioridade.PLENO, "Allan Isaac", 4, 32);
+        programadorJS1.dizendoSenioridade();
+        programadorJS1.dizendoSeEstaEmpregado();
+
+        System.out.println("________ Inicializando Listas ______");
+
+        List<String> programadores = new ArrayList<>();
+        programadores.add(programadorJava1.getNome());
+        programadores.add(programadorJS1.getNome());
+        System.out.println(programadores);
+        programadores.remove(programadorJava1.getNome());
+        System.out.println(programadores);
+        programadores.add(programadorJava1.getNome());
+        programadores.set(0, "Theo");
+        System.out.println(programadores);
+        System.out.println(programadores.size());
+
+        System.out.println("________ Generics ______");
+        Habilidades habilidadeJava = new Habilidades("JAVA");
+        Habilidades habilidadeJS = new Habilidades("JavaScript");
+        Habilidades habilidadeSpring = new Habilidades("Spring");
+
+        BolsaDeHabilidades<Habilidades> bolsaDeHabilidades = new BolsaDeHabilidades<>();
+        bolsaDeHabilidades.adicionarHabilidades(habilidadeJava);
+        bolsaDeHabilidades.adicionarHabilidades(habilidadeJS);
+        bolsaDeHabilidades.adicionarHabilidades(habilidadeSpring);
+        System.out.println(bolsaDeHabilidades.getHabilidades());
 
 
     }

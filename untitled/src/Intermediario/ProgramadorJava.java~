@@ -1,17 +1,10 @@
 package Intermediario;
 
-public class ProgramadorJava extends Programador implements BomEmPOO{
+public class ProgramadorJava extends Programador{
 
-    public ProgramadorJava(String nome, int idade) {
-        super(nome, idade);
-    }
-
-    //Novo construtor atualizado.
-
-
-
-    public ProgramadorJava(int anosDeExperiencia, Senioridade senioridade, String nome, int idade) {
-        super(anosDeExperiencia, senioridade, nome, idade);
+ //Construtor
+    public ProgramadorJava(Senioridade senioridade, String nome, int anosDeExperiencia, int idade) {
+        super(senioridade, nome, anosDeExperiencia, idade);
     }
 
     @Override
@@ -22,11 +15,8 @@ public class ProgramadorJava extends Programador implements BomEmPOO{
     @Override
     public void dizendoLinguagem() {
         System.out.println("Meu nome é " + getNome() + " Estou usando JAVA como linguagem " + "e atualmente sou de " +
-                "senioridade " + Senioridade);
+                "senioridade " + getSenioridade());
     }
 
-    @Override
-    public void habilidadeEspecial() {
-        System.out.println("Eu sou bom em POO");
-    }
+
 }

@@ -1,18 +1,55 @@
 package Intermediario;
 
-public abstract class Programador implements EmpregadoOuNao {
+public abstract class Programador {
 
 
-    //TODO: Incluir novos atributos: cidade e estado.
-    //TODO: Senioridade é um enum vai informar se o programador eh junior, pleno ou senior. Enum é algo controlado e fixo, ou seja, ele vai ser o mesmo em todos os programas.
-    Senioridade senioridade;
     //Declarando um atributo final
     final String estudante = "Sim, estou estudando";
 
+    //Chamando o enum
+    private Senioridade senioridade;
 
     private String nome;
     private int anosDeExperiencia;
     private int idade;
+
+    //Construtor  vazio
+    public Programador() {
+    }
+    //Construtor
+    public Programador(Senioridade senioridade, String nome, int anosDeExperiencia, int idade) {
+        this.senioridade = senioridade;
+        this.nome = nome;
+        this.anosDeExperiencia = anosDeExperiencia;
+        this.idade = idade;
+    }
+
+
+    //Criando um método que usa o enum
+    public void dizendoSenioridade(){
+        System.out.println("Meu nome é " + getNome() + ", e tenho " + senioridade.getAnosDeExperiencia() + " anos de " +
+                "experiência, e " + senioridade.getDescricao());
+    }
+
+
+    //Declarando um método final, e não pode ser sobreescrito.
+    final void estouEstudando(){
+        System.out.println("Eu sou um eterno estudante, e atualmente estou estudando sim");
+    }
+    
+
+    @Override
+    public String toString() {
+        return "Meu nome é " + nome + ", tenho " + idade;
+    }
+
+    //Getters e Setters
+    public Senioridade getSenioridade() {
+        return senioridade;
+    }
+    public void setSenioridade(Senioridade senioridade) {
+        this.senioridade = senioridade;
+    }
 
     public String getNome(){
         return nome;
@@ -35,53 +72,4 @@ public abstract class Programador implements EmpregadoOuNao {
         this.idade = idade;
     }
 
-//Construtor
-
-
-    public Programador(Senioridade senioridade, String nome, int anosDeExperiencia, int idade) {
-        this.senioridade = senioridade;
-        this.nome = nome;
-        this.anosDeExperiencia = anosDeExperiencia;
-        this.idade = idade;
-    }
-
-    //Declarando um método final, e não pode ser sobreescrito.
-    final void estouEstudando(){
-        System.out.println("Eu sou um eterno estudante, e atualmente estou estudando sim");
-    }
-
-    //TODO: Sobrecarga do construtor, chamando os novos atributos.
-    //Sobrecarga de métodos não precisa redeclarar o construtor, apenas os novos atributos.
-    public Programador(int anosDeExperiencia, Senioridade senioridade, String nome, int idade) {
-        this(nome, idade); // Só é preciso refeenciar desa maneira, pois eles já foram declarados acima no primeiro
-        // construtor.
-        this.anosDeExperiencia = anosDeExperiencia;
-        this.senioridade = senioridade;
-
-    }
-
-
-    public void dizendoLinguagem() {
-        System.out.println("Meu nome é " + nome + " Estou usando Tal como linguagem " + "e atualmente sou de " +
-                "senioridade " + senioridade);
-    }
-
-    @Override
-    public void tempoQueEstaDesempregado() {
-        System.out.println("Você está a muito tempo desempregado");
-    }
-
-    @Override
-    public void tempoQueEstaDesempregado(int anosDesempregado) {
-        if (anosDesempregado > 5) {
-            System.out.println("ATENÇÃO, você já está a muito tempo desempregado");
-    }else {
-            System.out.println(" Vocé tem menos de 5 anos de desemprego");
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Meu nome é " + nome + ", tenho " + idade;
-    }
 }
