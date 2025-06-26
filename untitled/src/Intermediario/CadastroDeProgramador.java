@@ -1,0 +1,36 @@
+package Intermediario;
+
+public class CadastroDeProgramador {
+    private String nome;
+    private int idade;
+    private String Satack;
+
+
+    public CadastroDeProgramador(String nome, int idade, String satack) {
+        this.nome = nome;
+        this.idade = idade;
+        Satack = satack;
+    }
+
+
+    public String apresentando() {
+        return "Olá, meu nome é " + getNome() + ", tenho " + getIdade() + " anos e minha stack é " + getSatack();
+    }
+
+    // Getters e Setters
+    public String getNome() {
+        return nome;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public String getSatack() {
+        return Satack;
+    }
+}
