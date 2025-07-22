@@ -1,0 +1,39 @@
+import java.util.LinkedList;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+    public static void main(String[] args) {
+
+        //Iniciar uma LinkedList com 7 Ninjas
+        LinkedList<Ninja> listaDeNinjas = new LinkedList<>();
+
+        //Adicionar 7 ninjas a lista
+        listaDeNinjas.add(new Ninja("Sasuke Uchiha", 17, "Konoha"));
+        listaDeNinjas.add(new Ninja("Sakura Haruno", 17, "Folha"));
+        listaDeNinjas.add(new Ninja("Kakashi Hatake", 31, "Água"));
+        listaDeNinjas.add(new Ninja("Gaara", 17, "Areia"));
+        listaDeNinjas.add(new Ninja("Shikamaru Nara", 17, "Konoha"));
+        listaDeNinjas.add(new Ninja("Temari", 18, "Areia"));
+
+        //Listar Ninjas
+        System.out.println("----------------Lista de Ninjas----------------");
+        for(Ninja ninja : listaDeNinjas){
+            System.out.println(ninja);
+        }
+
+
+        //Adcionar um item no inicio da lista
+        listaDeNinjas.addFirst(new Ninja("Naruto Uzumaki", 17, "Konoha"));
+        System.out.println(listaDeNinjas);
+
+        //Remover o ninjas do inicio da lista
+        System.out.println(listaDeNinjas.removeFirst());
+
+        // Procurar um ninja na lista
+        System.out.println(listaDeNinjas.get(5));
+
+
+
+    }
+}

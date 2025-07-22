@@ -46,12 +46,24 @@ public class Main2 {
         nomesProgramadoresQueue.poll();//Vai retirar o primeiro elemento adicionado, que é o "Jose Arthur".
         System.out.println(nomesProgramadoresQueue);
         System.out.println(nomesProgramadoresQueue.peek());
-        .
+
         if (nomesProgramadoresQueue.isEmpty()) {
             System.out.println("A fila está vazia.");
         } else {
             System.out.println("A fila não está vazia.");
         }
+
+
+        Set<String> nomesProgramadoresSet = new HashSet<>();
+        nomesProgramadoresSet.add("Jose Arthur");
+        nomesProgramadoresSet.add("Theo");
+        nomesProgramadoresSet.add("Allan");
+        System.out.println(nomesProgramadoresSet);
+        nomesProgramadoresSet.remove("Theo");
+        System.out.println(nomesProgramadoresSet);
+
+
+
 
 
     }

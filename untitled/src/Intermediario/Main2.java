@@ -54,5 +54,14 @@ public class Main2 {
         }
 
 
+        Set<String> nomesProgramadoresSet = new HashSet<>();
+        nomesProgramadoresSet.add("Jose Arthur");
+        nomesProgramadoresSet.add("Theo");
+        nomesProgramadoresSet.add("Allan");
+        System.out.println(nomesProgramadoresSet);
+        nomesProgramadoresSet.remove("Theo");
+        System.out.println(nomesProgramadoresSet);
+
+
     }
 }
