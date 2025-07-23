@@ -27,6 +27,25 @@ public class Main {
                 .sorted((c1, c2) -> c1.getNome().compareTo(c2.getNome()))
                 .map(Cliente::getNome)
                 .forEach(System.out::println);
+
+
+        System.out.println("-------------------");
+
+        Cliente clientesFiltrados = clientes.stream()
+                .min((c1, c2) -> Integer.compare(c1.getIdade(), c2.getIdade()))
+                .orElse(null);
+
+        System.out.println("Cliente mais novo: " + clientesFiltrados.getNome() + " - " + clientesFiltrados.getIdade() + " anos");
+
+        System.out.println("-------------------");
+
+        clientes.stream()
+                .filter(clienteMaior -> clienteMaior.getIdade() < 18)
+                .forEach(cliente -> System.out.println("Cliente menor de idade: " + cliente.getNome() + " - " + cliente.getIdade()));
+
+
+
+
     }
 
 }
