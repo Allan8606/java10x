@@ -6,5 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class CadastroDeNinjasApplicationTests {
 
+	@Test
+	void contextLoads() {
+	}
 
 }
