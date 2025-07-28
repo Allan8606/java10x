@@ -20,6 +20,7 @@ public class NinjaModel {
     private Long id;
     private String nome;
 
+    @Column(unique = true) // O email é único, não pode se repetir em outro ususario.
     private String email;
 
     private  int idade;
