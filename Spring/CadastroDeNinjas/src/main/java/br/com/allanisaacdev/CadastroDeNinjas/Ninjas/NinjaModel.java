@@ -1,6 +1,5 @@
 package br.com.allanisaacdev.CadastroDeNinjas.Ninjas;
 
-
 import br.com.allanisaacdev.CadastroDeNinjas.Missoes.MissoesModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
