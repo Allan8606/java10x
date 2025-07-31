@@ -16,18 +16,28 @@ public class NinjaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column (name = "id")
+    private long id;
+
+    @Column (name = "nome")
     private String nome;
 
-    @Column(unique = true) // O email é único, não pode se repetir em outro ususario.
+    @Column(unique = true)
     private String email;
 
-    private  int idade;
+    @Column (name = "img_url")
+    private String imgUrl;
 
-    // Um ninja tem apenas uma unica missão.
-    @ManyToMany
-    @JoinColumn(name = "missoes_id")//Chave estrangeira. Esse nome fomos nós que escolhemos.
+    @Column (name = "rank")
+    private String rank;
+
+    @Column (name = "idade")
+    private int idade;
+
+    @ManyToOne
+    @JoinColumn(name = "missoes_id")
     private MissoesModel missoes;
+
 
 
 
