@@ -1,8 +1,6 @@
 package br.com.allanisaacdev.CadastroDeNinjas.Ninjas;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
@@ -11,4 +9,37 @@ public class NinjaController {
     public String boasVindas(){
         return "Bem-vindo ao Cadastro de Ninjas!";
     }
+
+    //Adicionar Ninja (CREATE)
+    @PostMapping("/criar")
+    public String criarNinja() {
+        return "Ninja criado com sucesso!";
+    }
+
+    //Procurar todos os Ninjas (READ)
+    @GetMapping("/todos")
+    public String mostrarTodosOSNinjas() {
+        return "Todos os ninjas foram encontrados!";
+    }
+
+    //Mostrar Nnja por ID (READ)
+    @GetMapping("/todosID")
+    public String mostrarTodosOSNinjasPorId() {
+        return "Ninja encontrado pelo ID!";
+    }
+
+    //Alterar Dados do Ninja (UPDATE)
+    @PutMapping("/alterarID")
+    public String alterarNinjaPorId() {
+        return "Ninja alterado com sucesso!";
+    }
+
+    //Deletar Ninja (DELETE)
+    @DeleteMapping("/deletarID")
+    public String deletarNinjaPorId() {
+        return "Ninja deletado com sucesso!";
+    }
+
+
+
 }
