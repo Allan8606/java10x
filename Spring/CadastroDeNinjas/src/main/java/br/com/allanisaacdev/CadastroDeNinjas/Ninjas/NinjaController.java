@@ -32,9 +32,9 @@ public class NinjaController {
     }
 
     //Mostrar Nnja por ID (READ)
-    @GetMapping("/listarID")
-    public String mostrarTodosOSNinjasPorId() {
-        return "Ninja encontrado pelo ID!";
+    @GetMapping("/listar/{id}") //O @PathVariable é usado para extrair o valor do ID da URL
+    public NinjaModel listarNinjasPorId(@PathVariable Long id) {
+     return ninjaService.listarNinjasPorId(id);
     }
 
     //Alterar Dados do Ninja (UPDATE)
