@@ -2,6 +2,7 @@ package br.com.allanisaacdev.CadastroDeNinjas.Missoes;
 
 
 import br.com.allanisaacdev.CadastroDeNinjas.Ninjas.NinjaModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class MissoesModel {
 
     //Uma missão vai ter varios ninjas.
     @OneToMany(mappedBy = "missoes")
+    @JsonIgnore
     private List<NinjaModel> ninjas;
 
 }
