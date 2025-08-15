@@ -295,3 +295,9 @@ VALUES (1, 'Gohan', 20, 'http://gohanteste.com/gohan.png', '5', 1, 'M') [21002-2
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:1447)
+2025-08-14 20:58:12.856610-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TB_CADASTRO" not found; SQL statement:
+DELETE FROM TB_CADASTRO WHERE id = 33 [42102-232]
+2025-08-14 21:00:10.953660-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "TB_CADASTRO_DE_NIJAS" not found; SQL statement:
+DELETE FROM TB_CADASTRO_DE_NIJAS WHERE id = 35 [42102-232]
