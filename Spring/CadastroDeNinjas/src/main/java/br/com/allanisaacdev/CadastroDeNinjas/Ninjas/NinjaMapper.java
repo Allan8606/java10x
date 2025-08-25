@@ -1,7 +1,9 @@
 package br.com.allanisaacdev.CadastroDeNinjas.Ninjas;
 
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class NinjaMapper {
 
     public NinjaModel map(NinjaDTO ninjaDTO) {
@@ -35,8 +37,6 @@ public class NinjaMapper {
         ninjaDTO.setMissoes(ninjaModel.getMissoes());
 
         return ninjaDTO;
-
-
     }
 
 
