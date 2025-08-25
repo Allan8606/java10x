@@ -34,11 +34,10 @@ public class NinjaModel {
     @Column (name = "idade")
     private int idade;
 
+    @Column(name = "sexo")
+    private String sexo;
+
     @ManyToOne
     @JoinColumn(name = "missoes_id")
     private MissoesModel missoes;
-
-
-
-
 }
