@@ -21,14 +21,14 @@ public class MissoesController {
     }
 
     @GetMapping("/listar/{id}")
-    public MissoesModel listarMissaoPorId(@PathVariable Long id){
+    public MissoesDTO listarMissaoPorId(@PathVariable Long id){
         return missoesService.listarMissoesPorId(id);
     }
 
 
     @PostMapping("/criar")
-    public MissoesModel criarMissao(@RequestBody MissoesModel missaomodel){
-        return missoesService.criarMissao(missaomodel);
+    public MissoesDTO criarMissao(@RequestBody MissoesDTO missaoDTO){
+        return missoesService.criarMissao(missaoDTO);
     }
 
     //Alterar Missao
