@@ -3,6 +3,9 @@ package br.com.allanisaacdev.CadastroDeNinjas.Missoes;
 
 import br.com.allanisaacdev.CadastroDeNinjas.Ninjas.NinjaRepository;
 import br.com.allanisaacdev.CadastroDeNinjas.Ninjas.NinjaService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,21 +14,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MissoesService {
 
     private MissoesRepository missoesRepository;
 
     private MissoesMapper missoesMapper;
 
-    public MissoesService(MissoesRepository missoesRepository){
-        this.missoesRepository = missoesRepository;
-    }
+
 
     //Listar todas as missões
-    public List<MissoesModel> listarMissoes(){
-        return missoesRepository.findAll();
+    public List<MissoesDTO> listarMissoes() {
+        List<MissoesModel> missaoModel = missoesRepository.findAll();
+        return missaoModel.stream().map(missoesMapper::map).collect(Collectors.toList());
     }
 
     //Mostrar Missar por ID
