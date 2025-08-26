@@ -17,6 +17,8 @@ public class MissoesService {
 
     private MissoesRepository missoesRepository;
 
+    private MissoesMapper missoesMapper;
+
     public MissoesService(MissoesRepository missoesRepository){
         this.missoesRepository = missoesRepository;
     }
@@ -27,15 +29,17 @@ public class MissoesService {
     }
 
     //Mostrar Missar por ID
-    public MissoesModel listarMissoesPorId(Long id){
+    public MissoesDTO listarMissoesPorId(Long id){
         Optional<MissoesModel> missaoPorId = missoesRepository.findById(id);
-        return missaoPorId.orElse(null);
+        return missaoPorId.map(missoesMapper::map).orElse(null);
     }
 
     //Criar Missão
-    public MissoesModel criarMissao(MissoesModel missao){
-        return missoesRepository.save(missao);
-
+    public MissoesDTO criarMissao(MissoesDTO missao){
+        MissoesModel missaoModel = missoesMapper.map(missao);
+        missaoModel = missoesRepository.save(missaoModel);
+        MissoesDTO missaDTORetorno = missoesMapper.map(missaoModel);
+        return missaDTORetorno;
     }
 
     //Deletar Missão
