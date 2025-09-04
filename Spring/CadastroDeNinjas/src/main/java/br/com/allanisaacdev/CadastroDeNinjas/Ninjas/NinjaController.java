@@ -32,20 +32,35 @@ public class NinjaController {
 
     //Procurar todos os Ninjas (READ)
     @GetMapping("/listar")
-    public List<NinjaDTO> mostrarTodosOSNinjas() {
-        return ninjaService.listarNinjas();
+    public ResponseEntity<List<NinjaDTO>> mostrarTodosOSNinjas() {
+        List<NinjaDTO> listaNinja = ninjaService.listarNinjas();
+        return ResponseEntity.ok(listaNinja);
     }
 
     //Mostrar Nnja por ID (READ)
-    @GetMapping("/listar/{id}") //O @PathVariable é usado para extrair o valor do ID da URL
-    public NinjaDTO listarNinjasPorId(@PathVariable Long id) {
-     return ninjaService.listarNinjasPorId(id);
+    @GetMapping("/listar/{id}") //O @PathVariable é usado para extrair o valor do ID da URL.
+    // O ? foi usado para indicar que o ResponseEntity pode retornar qualquer tipo de corpo.
+    public ResponseEntity<?> listarNinjasPorId(@PathVariable Long id) {
+         NinjaDTO ninjaPorId = ninjaService.listarNinjasPorId(id);
+
+         if(ninjaPorId != null){
+             return ResponseEntity.ok(ninjaPorId);
+         }else{
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ninja não existe!");
+         }
+
     }
 
     //Alterar Dados do Ninja (UPDATE)
     @PutMapping("/alterar/{id}")
-    public NinjaDTO alterarNinjaPorId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
-        return ninjaService.atualizarNinja(id, ninjaAtualizado);
+    public ResponseEntity<?> alterarNinjaPorId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
+        NinjaDTO ninja =  ninjaService.atualizarNinja(id, ninjaAtualizado);
+
+        if(ninja != null){
+            return ResponseEntity.ok(ninja);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ninja com id: " + id + " não encontrado, impossível alterar!");
+        }
     }
 
     //Deletar Ninja (DELETE)
@@ -54,11 +69,12 @@ public class NinjaController {
 
         if(ninjaService.listarNinjasPorId(id) != null){
             ninjaService.deletarNinjaPorId(id);
-            return ResponseEntity.ok("Ninja deletado com sucesso! O ninja foi");
+            return ResponseEntity.ok("Ninja deletado com sucesso! O ninja que foi deletado, tem o id: " + id );
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Ninja não encontrado, impossível deletar!");
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body("Ninja não encontrado, impossível deletar!");
-
-
+//        return ResponseEntity.status(HttpStatus.CREATED).body("Ninja não encontrado, impossível deletar!")
 
     }
 
