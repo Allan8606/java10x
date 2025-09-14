@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/ninjas")
 public class NinjaController {
 
-    private NinjaService ninjaService;
+    private final NinjaService ninjaService;
 
     public NinjaController(NinjaService ninjaService) {
         this.ninjaService = ninjaService;
@@ -74,7 +74,7 @@ public class NinjaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Ninja não encontrado, impossível deletar!");
         }
-//        return ResponseEntity.status(HttpStatus.CREATED).body("Ninja não encontrado, impossível deletar!")
+
 
     }
 
