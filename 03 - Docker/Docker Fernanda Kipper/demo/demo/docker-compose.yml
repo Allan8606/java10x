@@ -1,0 +1,37 @@
+# versão do formato do compose
+version: "3.9"
+
+# aqui listamos os "serviços" (containers)
+services:
+  # nome do serviço (pode chamar de "db" mesmo)
+  db:
+    # imagem oficial do postgres, versão 16
+    image: postgres:16
+    # nome do container (ajuda a identificar)
+    container_name: movieflix-postgres
+    # variáveis de ambiente para configurar o banco
+    environment:
+      # nome do banco que vai ser criado
+      POSTGRES_DB: movieflix
+      # usuário do banco
+      POSTGRES_USER: postgres
+      # senha do banco
+      POSTGRES_PASSWORD: postgres
+    # porta do host -> porta do container (acessar em localhost:5432)
+    ports:
+      - "5432:5432"
+    # volume para guardar os dados (não perder ao reiniciar)
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # checagem de saúde: espera o banco ficar pronto
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d movieflix"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    # se cair, tenta voltar, a menos que você pare manualmente
+    restart: unless-stopped
+
+volumes:
+  # define o volume nomeado (fica gerenciado pelo docker)
+  pgdata:

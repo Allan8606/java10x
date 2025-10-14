@@ -1,12 +1,6 @@
-FROM maven:3.8.4-jdk-8 AS build
-
-COPY src /app/src
-COPY pom.xml /app
-
+FROM eclipse-temurin:17
 WORKDIR /app
-
-RUN mvn clean install
-
-FROM openjdk:8-jre-alpine
-
-COPY --from=build /app/target/spring-boot-2-hello-word-1.0.2-SNAPSHOT.jar /app/app.jar
+COPY target/demo-0.0.1-SNAPSHOT.jar /app/demo.jar
+ENTRYPOINT ["java", "-jar"]
+CMD ["demo.jar"]
+EXPOSE 8080
