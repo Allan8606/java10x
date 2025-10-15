@@ -17,7 +17,7 @@ public class Category {
 
     //Digo que a coluna name vai ter o tamanho de 100 caracteres e não pode ser nula, sendo obrigatória.
     @Column(length = 100, nullable = false)
-    private String nome;
+    private String name;
 
 
 
