@@ -4,6 +4,7 @@ package com.allan.dev.MovieFlix.controller;
 import com.allan.dev.MovieFlix.controller.request.CategoryRequest;
 import com.allan.dev.MovieFlix.controller.response.CategoryResponse;
 import com.allan.dev.MovieFlix.entity.Category;
+import com.allan.dev.MovieFlix.mapper.CategoryMapper;
 import com.allan.dev.MovieFlix.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,10 @@ public class CategoryController {
 
     @GetMapping()
     public List<CategoryResponse> listarTodasCategorias(){
-        return  categoryService.listarTodasCategorias();
+        List<Category> listaCategory = categoryService.listarTodasCategorias();
+        return listaCategory.stream()
+                .map(CategoryMapper::paraCategoryResponse)
+                .toList();
     }
 
     @GetMapping("/{id}")

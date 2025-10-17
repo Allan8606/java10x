@@ -20,8 +20,6 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-
-
     public Category salvarCategoria(Category category){
         return categoryRepository.save(category);
     }

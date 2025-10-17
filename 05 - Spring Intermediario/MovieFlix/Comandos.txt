@@ -1,6 +1,10 @@
 Atualizar alterações do Banco de dados.
 docker exec -t movieflix-postgres pg_dump -U postgres -d movieflix > ./backups/movieflix_dump.sql
 
+WSL:
+docker exec -t movieflix-postgres pg_dump -U postgres -d movieflix > ./backups/movieflix_dump.sql
+
+
 
 Baixar as atualizações 
 docker exec -it movieflix-postgres psql -U postgres -d movieflix -c "DROP SCHEMA IF EXISTS public CASCADE; CREATE SCHEMA public;"
@@ -9,5 +13,15 @@ docker exec -it movieflix-postgres psql -U postgres -d movieflix -c "DROP SCHEMA
 docker cp .\backups\movieflix_dump.sql movieflix-postgres:/movieflix_dump.sql
 
 docker exec -it movieflix-postgres psql -U postgres -d movieflix -f /movieflix_dump.sql
+
+
+
+WSL:
+docker exec -it movieflix-postgres psql -U postgres -d movieflix -c "DROP SCHEMA IF EXISTS public CASCADE; CREATE SCHEMA public;"
+
+docker cp ./backups/movieflix_dump.sql movieflix-postgres:/movieflix_dump.sql
+
+docker exec -it movieflix-postgres psql -U postgres -d movieflix -f /movieflix_dump.sql
+
 
 
