@@ -5,7 +5,6 @@ import com.allan.dev.MovieFlix.entity.Category;
 import com.allan.dev.MovieFlix.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +24,8 @@ public class CategoryService {
     }
 
 
-    public Category buscarPorId(Long id){
-        Optional<Category> category = categoryRepository.findById(id);
-        if(category.isPresent()){
-            return category.get();
-        }
-        return null;
+    public Optional<Category> buscarPorId(Long id){
+        return categoryRepository.findById(id);
     }
 
     public void deletarCategoriaPorId(Long id){
