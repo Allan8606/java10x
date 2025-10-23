@@ -1,5 +1,6 @@
 package com.allan.dev.MovieFlix.service;
 
+import com.allan.dev.MovieFlix.entity.Movie;
 import com.allan.dev.MovieFlix.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,5 +10,10 @@ import org.springframework.stereotype.Service;
 public class MovieService {
 
     private final MovieRepository movieRepository;
+
+
+    public Movie salvar(Movie movie){
+        return movieRepository.save(movie);
+    }
 
 }
