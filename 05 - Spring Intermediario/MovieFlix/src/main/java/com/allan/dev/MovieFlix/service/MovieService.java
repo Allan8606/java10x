@@ -1,19 +1,72 @@
 package com.allan.dev.MovieFlix.service;
 
+import com.allan.dev.MovieFlix.controller.request.MovieRequest;
+import com.allan.dev.MovieFlix.controller.response.MovieResponse;
+import com.allan.dev.MovieFlix.entity.Category;
 import com.allan.dev.MovieFlix.entity.Movie;
+import com.allan.dev.MovieFlix.entity.Streaming;
+import com.allan.dev.MovieFlix.mapper.MovieMapper;
 import com.allan.dev.MovieFlix.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
 public class MovieService {
 
     private final MovieRepository movieRepository;
+    private final CategoryService categoryService;
+    private final StreamingService streamingService;
 
 
-    public Movie salvar(Movie movie){
-        return movieRepository.save(movie);
+
+    public MovieResponse salvar(MovieRequest movieRequest){
+
+        Movie movie = MovieMapper.paraMovie(movieRequest);
+        movie.setCategory(this.buscarCategorias(movie.getCategory()));
+        movie.setStreaming(this.buscarStreaming(movie.getStreaming()));
+
+        Movie save = movieRepository.save(movie);
+        MovieResponse movieResponse = MovieMapper.paraMovieResponse(save);
+        return movieResponse;
     }
+
+    public List<MovieResponse> listarTodos(){
+        List<Movie> movies = movieRepository.findAll();
+        List<MovieResponse> movieResponses = movies.stream()
+                .map(movie -> MovieMapper.paraMovieResponse(movie)).toList();
+        return movieResponses;
+    }
+
+    private List<Category> buscarCategorias(List<Category> categories){
+
+        List<Category> categoriasEncontradas = new ArrayList<>();
+        categories.forEach(category -> {
+            categoryService.buscarPorId(category.getId()).ifPresent(categoriasEncontradas::add);
+        });
+        return categoriasEncontradas;
+    }
+
+    private List<Streaming> buscarStreaming(List<Streaming> streamings){
+
+        List<Streaming> streamingsEncontradas = new ArrayList<>();
+        streamings.forEach(streaming -> {
+            streamingService.buscarPorId(streaming.getId()).ifPresent(streamingsEncontradas::add);
+        });
+        return streamingsEncontradas;
+    }
+
+    public Optional<MovieResponse> buscarPorId(Long id){
+         return movieRepository.findById(id)
+                .map(MovieMapper::paraMovieResponse);
+    }
+
+
+
 
 }

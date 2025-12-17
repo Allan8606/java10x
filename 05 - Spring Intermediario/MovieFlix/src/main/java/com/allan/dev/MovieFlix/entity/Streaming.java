@@ -1,17 +1,15 @@
 package com.allan.dev.MovieFlix.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "streaming")
-@Data
+@Getter
+@Setter
 public class Streaming {
 
     @Id
