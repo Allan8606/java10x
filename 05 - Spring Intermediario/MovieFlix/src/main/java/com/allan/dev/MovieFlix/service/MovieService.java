@@ -66,6 +66,42 @@ public class MovieService {
                 .map(MovieMapper::paraMovieResponse);
     }
 
+    public Optional<MovieResponse> atualizar (Long id, MovieRequest movieRequest){
+        Optional<Movie> movieEncontrado = movieRepository.findById(id);
+        Movie movie = MovieMapper.paraMovie(movieRequest);
+
+
+        if (movieEncontrado.isPresent()){
+            List<Category> categories = this.buscarCategorias(movie.getCategory());
+            List<Streaming> streamings = this.buscarStreaming(movie.getStreaming());
+
+            Movie movieAtualizado = movieEncontrado.get();
+            movieAtualizado.setTitle(movie.getTitle());
+            movieAtualizado.setDescription(movie.getDescription());
+            movieAtualizado.setReleaseDate(movie.getReleaseDate());
+            movieAtualizado.setRating(movie.getRating());
+
+            //Primeiro limpa a lista antiga para por a nova lista
+            movieAtualizado.getCategory().clear();
+            movieAtualizado.getCategory().addAll(categories);
+
+            movieAtualizado.getStreaming().clear();
+            movieAtualizado.getStreaming().addAll(streamings);
+
+            movieRepository.save(movieAtualizado);
+            MovieResponse movieResponse = MovieMapper.paraMovieResponse(movieAtualizado);
+
+            return Optional.of(movieResponse);
+
+        }
+
+        return Optional.empty();
+
+
+    }
+
+
+
 
 
 
