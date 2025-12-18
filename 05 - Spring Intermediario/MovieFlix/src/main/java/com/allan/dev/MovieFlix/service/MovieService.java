@@ -76,6 +76,7 @@ public class MovieService {
             List<Streaming> streamings = this.buscarStreaming(movie.getStreaming());
 
             Movie movieAtualizado = movieEncontrado.get();
+
             movieAtualizado.setTitle(movie.getTitle());
             movieAtualizado.setDescription(movie.getDescription());
             movieAtualizado.setReleaseDate(movie.getReleaseDate());
@@ -96,8 +97,6 @@ public class MovieService {
         }
 
         return Optional.empty();
-
-
     }
 
 

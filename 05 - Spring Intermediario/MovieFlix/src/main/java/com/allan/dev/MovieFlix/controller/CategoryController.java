@@ -54,6 +54,14 @@ public class CategoryController {
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponse> atualizar(@PathVariable Long id, @RequestBody CategoryRequest request){
+
+      return categoryService.atualizar(id, request)
+              .map(ResponseEntity::ok)
+              .orElse(ResponseEntity.notFound().build());
+    }
+
 
 
 
