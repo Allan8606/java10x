@@ -1,6 +1,7 @@
 package com.allan.dev.MovieFlix.service;
 
 import com.allan.dev.MovieFlix.controller.request.MovieRequest;
+import com.allan.dev.MovieFlix.controller.response.CategoryResponse;
 import com.allan.dev.MovieFlix.controller.response.MovieResponse;
 import com.allan.dev.MovieFlix.entity.Category;
 import com.allan.dev.MovieFlix.entity.Movie;
@@ -97,6 +98,21 @@ public class MovieService {
         }
 
         return Optional.empty();
+    }
+
+    public List<MovieResponse> buscarPorCategory(Long categoryId){
+
+        List<Movie> movieByCategory = movieRepository.findMovieByCategory(Category.builder().id(categoryId).build());
+
+        return movieByCategory.stream().map(MovieMapper::paraMovieResponse).toList();
+    }
+
+    public void deletar(Long id){
+        movieRepository.findById(id).map(movie -> {
+            movieRepository.deleteById(id);
+            return Void.TYPE;
+        });
+
     }
 
 
