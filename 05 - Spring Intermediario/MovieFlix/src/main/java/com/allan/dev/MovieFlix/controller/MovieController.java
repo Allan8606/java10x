@@ -41,8 +41,6 @@ public class MovieController {
         return movieService.atualizar(id, movieRequest)
                 .map(movie -> ResponseEntity.ok(movie))
                 .orElse(ResponseEntity.notFound().build());
-
-
     }
 
 

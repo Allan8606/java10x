@@ -1,6 +1,9 @@
 package com.allan.dev.MovieFlix.service;
 
+import com.allan.dev.MovieFlix.controller.request.StreamingRequest;
+import com.allan.dev.MovieFlix.controller.response.StreamingResponse;
 import com.allan.dev.MovieFlix.entity.Streaming;
+import com.allan.dev.MovieFlix.mapper.StreamingMapper;
 import com.allan.dev.MovieFlix.repository.StreamingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,15 @@ public class StreamingService {
         if (streamingRepository.existsById(id)) {
             streamingRepository.deleteById(id);
         }
+    }
+
+    public Optional<StreamingResponse> atualizar(Long id, StreamingRequest request){
+        return streamingRepository.findById(id)
+                .map(s -> {
+                    s.setName(request.name());
+                    streamingRepository.save(s);
+                    return StreamingMapper.paraStreamingResponse(s);
+                });
     }
 
 }

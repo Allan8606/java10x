@@ -1,7 +1,10 @@
 package com.allan.dev.MovieFlix.service;
 
 
+import com.allan.dev.MovieFlix.controller.request.CategoryRequest;
+import com.allan.dev.MovieFlix.controller.response.CategoryResponse;
 import com.allan.dev.MovieFlix.entity.Category;
+import com.allan.dev.MovieFlix.mapper.CategoryMapper;
 import com.allan.dev.MovieFlix.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,11 +35,16 @@ public class CategoryService {
         if (categoryRepository.existsById(id)){
             categoryRepository.deleteById(id);
         }
-
     }
 
+    public Optional<CategoryResponse> atualizar(Long id, CategoryRequest request){
+        Optional<Category> byId = categoryRepository.findById(id);
+        Category category = CategoryMapper.paraCategoria(request);
 
-
-
-
+      return byId.map(c -> {
+            c.setName(category.getName());
+            categoryRepository.save(c);
+            return CategoryMapper.paraCategoryResponse(c);
+        });
+    }
 }
