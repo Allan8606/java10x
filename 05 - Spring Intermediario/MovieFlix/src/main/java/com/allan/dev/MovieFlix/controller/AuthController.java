@@ -1,8 +1,11 @@
 package com.allan.dev.MovieFlix.controller;
 
 
+import com.allan.dev.MovieFlix.controller.request.LoginRequest;
 import com.allan.dev.MovieFlix.controller.request.UserRequest;
+import com.allan.dev.MovieFlix.controller.response.LoginResponse;
 import com.allan.dev.MovieFlix.controller.response.UserResponse;
+import com.allan.dev.MovieFlix.service.AuthApplicationService;
 import com.allan.dev.MovieFlix.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final UserService userService;
+    private final AuthApplicationService authApplicationService;
 
 
     @PostMapping("/register")
@@ -24,6 +28,11 @@ public class AuthController {
         UserResponse registrar = userService.registrar(userRequest);
 
         return ResponseEntity.ok(registrar);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
+        return ResponseEntity.ok(authApplicationService.login(loginRequest));
     }
 
 }

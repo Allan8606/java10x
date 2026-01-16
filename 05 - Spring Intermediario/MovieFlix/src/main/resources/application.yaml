@@ -4,7 +4,7 @@ spring:
     name: movieflix
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/movieflix
+    url: jdbc:postgresql://localhost:5433/movieflix
     username: postgres
     password: 86065542
     driver-class-name: org.postgresql.Driver
@@ -15,3 +15,8 @@ spring:
 
   flyway:
     enabled: true
+
+
+movieflix:
+  security:
+    secret: "minha-palavra-secreta"
