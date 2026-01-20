@@ -44,8 +44,8 @@ public class MovieService {
         return movieRepository.save(newMovie);
     }
 
-    public Optional<Movie> update(Movie updateMovie) {
-        Optional<Movie> optMovie = findById(updateMovie.getId());
+    public Optional<Movie> update(Long id, Movie updateMovie) {
+        Optional<Movie> optMovie = findById(id);
         if (optMovie.isPresent()) {
             Movie movie = optMovie.get();
             movie.setTitle(updateMovie.getTitle());
