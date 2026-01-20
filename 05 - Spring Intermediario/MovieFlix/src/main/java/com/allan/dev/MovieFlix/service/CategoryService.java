@@ -6,6 +6,7 @@ import com.allan.dev.MovieFlix.controller.response.CategoryResponse;
 import com.allan.dev.MovieFlix.entity.Category;
 import com.allan.dev.MovieFlix.mapper.CategoryMapper;
 import com.allan.dev.MovieFlix.repository.CategoryRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,33 +19,19 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public List<Category> listarTodasCategorias(){
-        return categoryRepository.findAll();
-    }
-
-    public Category salvarCategoria(Category category){
+    public Category save(Category category) {
         return categoryRepository.save(category);
     }
 
-
-    public Optional<Category> buscarPorId(Long id){
+    public Optional<Category> findById(Long id) {
         return categoryRepository.findById(id);
     }
 
-    public void deletarCategoriaPorId(Long id){
-        if (categoryRepository.existsById(id)){
-            categoryRepository.deleteById(id);
-        }
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 
-    public Optional<CategoryResponse> atualizar(Long id, CategoryRequest request){
-        Optional<Category> byId = categoryRepository.findById(id);
-        Category category = CategoryMapper.paraCategoria(request);
-
-      return byId.map(c -> {
-            c.setName(category.getName());
-            categoryRepository.save(c);
-            return CategoryMapper.paraCategoryResponse(c);
-        });
+    public void deleteById(Long id) {
+        categoryRepository.deleteById(id);
     }
 }

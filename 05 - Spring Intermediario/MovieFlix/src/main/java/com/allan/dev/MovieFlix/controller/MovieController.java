@@ -2,7 +2,10 @@ package com.allan.dev.MovieFlix.controller;
 
 import com.allan.dev.MovieFlix.controller.request.MovieRequest;
 import com.allan.dev.MovieFlix.controller.response.MovieResponse;
+import com.allan.dev.MovieFlix.entity.Movie;
+import com.allan.dev.MovieFlix.mapper.MovieMapper;
 import com.allan.dev.MovieFlix.service.MovieService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,49 +21,51 @@ public class MovieController {
 
     private final MovieService movieService;
 
-    @PostMapping
-    public ResponseEntity<MovieResponse> savar(@RequestBody MovieRequest request){
-        MovieResponse salvar = movieService.salvar(request);
-        return ResponseEntity.ok(salvar);
-    }
-
     @GetMapping
-    public ResponseEntity<List<MovieResponse>> listarTodos(){
-        List<MovieResponse> movieResponses = movieService.listarTodos();
-
-        return ResponseEntity.ok(movieResponses);
+    public ResponseEntity<List<MovieResponse>> findAllMovies() {
+        return ResponseEntity.ok(movieService.findAll()
+                .stream()
+                .map(movie -> MovieMapper.paraMovieResponse(movie))
+                .toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovieResponse> buscarPorId(@PathVariable Long id){
-        return movieService.buscarPorId(id)
-                .map(ResponseEntity::ok)
+    public ResponseEntity<MovieResponse> findMovieById(@PathVariable Long id) {
+        return movieService.findById(id)
+                .map(movie -> ResponseEntity.ok(MovieMapper.paraMovieResponse(movie)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<MovieResponse> atualizar(@PathVariable Long id, @RequestBody MovieRequest movieRequest){
-        return movieService.atualizar(id, movieRequest)
-                .map(movie -> ResponseEntity.ok(movie))
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/search")
+    public ResponseEntity<List<MovieResponse>> findMoviesByCategoryId(@RequestParam Long category) {
+        List<MovieResponse> list = movieService.findByCategory(category).stream()
+                .map(movie -> MovieMapper.paraMovieResponse(movie))
+                .toList();
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/busca")
-    public ResponseEntity<List<MovieResponse>>buscarPorCategory(@RequestParam Long id){
-        return ResponseEntity.ok(movieService.buscarPorCategory(id));
+    @PostMapping
+    public ResponseEntity<MovieResponse> createMovie(@Valid @RequestBody MovieRequest request) {
+        Movie movie = MovieMapper.paraMovie(request);
+        Movie savedMovie = movieService.save(movie);
 
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(MovieMapper.paraMovieResponse(savedMovie));
+    }
+
+    @PutMapping
+    public ResponseEntity<MovieResponse> updateMovie(@Valid @RequestBody MovieRequest request) {
+        Movie movie = MovieMapper.paraMovie(request);
+        return movieService.update(movie)
+                .map(m -> ResponseEntity.ok(MovieMapper.paraMovieResponse(m)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPorId(@PathVariable Long id){
-        Optional<MovieResponse> optById = movieService.buscarPorId(id);
-        if (optById.isPresent()){
-            movieService.deletar(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
+        movieService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
-
 
 
 }

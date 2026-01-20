@@ -17,32 +17,20 @@ public class StreamingService {
 
     private final StreamingRepository streamingRepository;
 
-    public List<Streaming> listarTodos(){
-        return streamingRepository.findAll();
+    public Streaming save(Streaming streamService) {
+        return streamingRepository.save(streamService);
     }
 
-    public Streaming salvar(Streaming streaming){
-        return streamingRepository.save(streaming);
-    }
-
-
-    public Optional<Streaming> buscarPorId(Long id){
+    public Optional<Streaming> findById(Long id) {
         return streamingRepository.findById(id);
     }
 
-    public void deletarPorId(Long id) {
-        if (streamingRepository.existsById(id)) {
-            streamingRepository.deleteById(id);
-        }
+    public List<Streaming> findAll() {
+        return streamingRepository.findAll();
     }
 
-    public Optional<StreamingResponse> atualizar(Long id, StreamingRequest request){
-        return streamingRepository.findById(id)
-                .map(s -> {
-                    s.setName(request.name());
-                    streamingRepository.save(s);
-                    return StreamingMapper.paraStreamingResponse(s);
-                });
+    public void deleteById(Long id) {
+        streamingRepository.deleteById(id);
     }
 
 }

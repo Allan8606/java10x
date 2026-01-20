@@ -6,8 +6,10 @@ import com.allan.dev.MovieFlix.controller.response.MovieResponse;
 import com.allan.dev.MovieFlix.entity.Category;
 import com.allan.dev.MovieFlix.entity.Movie;
 import com.allan.dev.MovieFlix.entity.Streaming;
+import com.allan.dev.MovieFlix.mapper.CategoryMapper;
 import com.allan.dev.MovieFlix.mapper.MovieMapper;
 import com.allan.dev.MovieFlix.repository.MovieRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,95 +26,64 @@ public class MovieService {
     private final CategoryService categoryService;
     private final StreamingService streamingService;
 
-
-
-    public MovieResponse salvar(MovieRequest movieRequest){
-
-        Movie movie = MovieMapper.paraMovie(movieRequest);
-        movie.setCategory(this.buscarCategorias(movie.getCategory()));
-        movie.setStreaming(this.buscarStreaming(movie.getStreaming()));
-
-        Movie save = movieRepository.save(movie);
-        MovieResponse movieResponse = MovieMapper.paraMovieResponse(save);
-        return movieResponse;
+    public List<Movie> findAll() {
+        return movieRepository.findAll();
     }
 
-    public List<MovieResponse> listarTodos(){
-        List<Movie> movies = movieRepository.findAll();
-        List<MovieResponse> movieResponses = movies.stream()
-                .map(movie -> MovieMapper.paraMovieResponse(movie)).toList();
-        return movieResponses;
+    public Optional<Movie> findById(Long id) {
+        return movieRepository.findById(id);
     }
 
-    private List<Category> buscarCategorias(List<Category> categories){
-
-        List<Category> categoriasEncontradas = new ArrayList<>();
-        categories.forEach(category -> {
-            categoryService.buscarPorId(category.getId()).ifPresent(categoriasEncontradas::add);
-        });
-        return categoriasEncontradas;
+    public List<Movie> findByCategory(Long categoryId) {
+        return movieRepository.findMovieByCategory(List.of(Category.builder().id(categoryId).build()));
     }
 
-    private List<Streaming> buscarStreaming(List<Streaming> streamings){
-
-        List<Streaming> streamingsEncontradas = new ArrayList<>();
-        streamings.forEach(streaming -> {
-            streamingService.buscarPorId(streaming.getId()).ifPresent(streamingsEncontradas::add);
-        });
-        return streamingsEncontradas;
+    public Movie save(Movie newMovie) {
+        newMovie.setCategory(findCategories(newMovie.getCategory()));
+        newMovie.setStreaming(findServices(newMovie.getStreaming()));
+        return movieRepository.save(newMovie);
     }
 
-    public Optional<MovieResponse> buscarPorId(Long id){
-         return movieRepository.findById(id)
-                .map(MovieMapper::paraMovieResponse);
-    }
+    public Optional<Movie> update(Movie updateMovie) {
+        Optional<Movie> optMovie = findById(updateMovie.getId());
+        if (optMovie.isPresent()) {
+            Movie movie = optMovie.get();
+            movie.setTitle(updateMovie.getTitle());
+            movie.setDescription(updateMovie.getDescription());
+            movie.setRating(updateMovie.getRating());
+            movie.setReleaseDate(updateMovie.getReleaseDate());
 
-    public Optional<MovieResponse> atualizar (Long id, MovieRequest movieRequest){
-        Optional<Movie> movieEncontrado = movieRepository.findById(id);
-        Movie movie = MovieMapper.paraMovie(movieRequest);
+            movie.getCategory().clear();
+            movie.getCategory().addAll(findCategories(updateMovie.getCategory()));
 
+            movie.getStreaming().clear();
+            movie.getStreaming().addAll(findServices(updateMovie.getStreaming()));
 
-        if (movieEncontrado.isPresent()){
-            List<Category> categories = this.buscarCategorias(movie.getCategory());
-            List<Streaming> streamings = this.buscarStreaming(movie.getStreaming());
-
-            Movie movieAtualizado = movieEncontrado.get();
-
-            movieAtualizado.setTitle(movie.getTitle());
-            movieAtualizado.setDescription(movie.getDescription());
-            movieAtualizado.setReleaseDate(movie.getReleaseDate());
-            movieAtualizado.setRating(movie.getRating());
-
-            //Primeiro limpa a lista antiga para por a nova lista
-            movieAtualizado.getCategory().clear();
-            movieAtualizado.getCategory().addAll(categories);
-
-            movieAtualizado.getStreaming().clear();
-            movieAtualizado.getStreaming().addAll(streamings);
-
-            movieRepository.save(movieAtualizado);
-            MovieResponse movieResponse = MovieMapper.paraMovieResponse(movieAtualizado);
-
-            return Optional.of(movieResponse);
-
+            return Optional.of(movieRepository.save(movie));
         }
-
         return Optional.empty();
     }
 
-    public List<MovieResponse> buscarPorCategory(Long categoryId){
-
-        List<Movie> movieByCategory = movieRepository.findMovieByCategory(Category.builder().id(categoryId).build());
-
-        return movieByCategory.stream().map(MovieMapper::paraMovieResponse).toList();
+    public void deleteById(Long id) {
+        movieRepository.deleteById(id);
     }
 
-    public void deletar(Long id){
-        movieRepository.findById(id).map(movie -> {
-            movieRepository.deleteById(id);
-            return Void.TYPE;
+    private List<Category> findCategories(List<Category> categories) {
+        List<Category> categoriesList = new ArrayList<>();
+        categories.forEach(category -> {
+            Optional<Category> optCategory = categoryService.findById(category.getId());
+            optCategory.ifPresent(categoriesList::add);
         });
+        return categoriesList;
+    }
 
+    private List<Streaming> findServices(List<Streaming> streamings) {
+        List<Streaming> servicesList = new ArrayList<>();
+        streamings.forEach(s -> {
+            Optional<Streaming> optStreamService = streamingService.findById(s.getId());
+            optStreamService.ifPresent(servicesList::add);
+        });
+        return servicesList;
     }
 
 

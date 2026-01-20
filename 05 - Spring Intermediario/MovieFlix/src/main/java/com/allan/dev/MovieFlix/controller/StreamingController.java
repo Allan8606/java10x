@@ -6,7 +6,9 @@ import com.allan.dev.MovieFlix.controller.response.StreamingResponse;
 import com.allan.dev.MovieFlix.entity.Streaming;
 import com.allan.dev.MovieFlix.mapper.StreamingMapper;
 import com.allan.dev.MovieFlix.service.StreamingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,48 +20,41 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StreamingController {
 
-    private final StreamingService streamingService;
+    private final StreamingService service;
 
-    @GetMapping()
-    public ResponseEntity<List<StreamingResponse>> listarTodas(){
-        List<Streaming> listaStreaming = streamingService.listarTodos();
-        List<StreamingResponse> lista = listaStreaming.stream()
+    @PostMapping
+    public ResponseEntity<StreamingResponse> createCategory(@Valid @RequestBody StreamingRequest request) {
+        Streaming streamService = StreamingMapper.paraStreaming(request);
+        Streaming savedStreamService = service.save(streamService);
+        return ResponseEntity.status(HttpStatus.CREATED).body(StreamingMapper.paraStreamingResponse(savedStreamService));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StreamingResponse>> findAll() {
+        List<StreamingResponse> services = service.findAll().stream()
                 .map(StreamingMapper::paraStreamingResponse)
                 .toList();
 
-        return ResponseEntity.ok(lista);
-
+        return ResponseEntity.ok(services);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StreamingResponse> buscarPorId(@PathVariable Long id){
-        return streamingService.buscarPorId(id)
-                .map(streaming -> ResponseEntity.ok(StreamingMapper.paraStreamingResponse(streaming)))
+    public ResponseEntity<StreamingResponse> find(@PathVariable Long id) {
+        return service.findById(id)
+                .map(streamService -> ResponseEntity.ok(StreamingMapper.paraStreamingResponse(streamService)))
                 .orElse(ResponseEntity.notFound().build());
-
-
-    }
-
-    @PostMapping()
-    public ResponseEntity<StreamingResponse> salvarStreaming(@RequestBody StreamingRequest request){
-        Streaming novaStreaming = StreamingMapper.paraStreaming(request);
-
-        Streaming salvarStreaming = streamingService.salvar(novaStreaming);
-        return ResponseEntity.status(HttpStatus.CREATED).body(StreamingMapper.paraStreamingResponse(salvarStreaming));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPorId(@PathVariable Long id){
-        streamingService.deletarPorId(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        try {
+            service.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<StreamingResponse> atualizar(@PathVariable Long id, @RequestBody StreamingRequest request){
-        return streamingService.atualizar(id, request)
-                .map(streamingResponse -> ResponseEntity.ok(streamingResponse))
-                .orElse(ResponseEntity.notFound().build());
     }
 
 
