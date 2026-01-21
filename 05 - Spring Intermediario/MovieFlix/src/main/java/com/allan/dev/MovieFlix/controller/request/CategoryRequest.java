@@ -1,8 +1,10 @@
 package com.allan.dev.MovieFlix.controller.request;
 
-import jakarta.validation.constraints.NotEmpty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 
 public record CategoryRequest(
-        @NotEmpty(message = "Nome da Categoria é Obrigatório")
+        @Schema(type = "String", description = "Nome da Categoria")
+        @NotBlank(message = "Nome da Categoria é Obrigatório")
         String name) {
 }

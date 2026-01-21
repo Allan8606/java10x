@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/movieflix/movie")
@@ -59,7 +58,7 @@ public class MovieController {
     @ApiResponse(responseCode = "200", description = "Filme encontrado com sucesso",
             content = @Content())
     @ApiResponse(responseCode = "404", description = "Filme não encontrado",
-            content = @Content(schema = @Schema(implementation = MovieResponse.class)))
+            content = @Content())
     @GetMapping("/{id}")
     public ResponseEntity<MovieResponse> findMovieById(@PathVariable Long id) {
         return movieService.findById(id)
@@ -85,7 +84,7 @@ public class MovieController {
             content = @Content(schema = @Schema(implementation = MovieResponse.class)))
     @ApiResponse(responseCode = "404", description = "Filme não encontrado",
             content = @Content(schema = @Schema(implementation = MovieResponse.class)))
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<MovieResponse> updateMovie(@PathVariable Long id, @Valid @RequestBody MovieRequest request) {
 
         Movie movie = MovieMapper.paraMovie(request);

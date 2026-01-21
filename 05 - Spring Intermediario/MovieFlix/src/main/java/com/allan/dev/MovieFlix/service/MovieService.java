@@ -1,15 +1,9 @@
 package com.allan.dev.MovieFlix.service;
 
-import com.allan.dev.MovieFlix.controller.request.MovieRequest;
-import com.allan.dev.MovieFlix.controller.response.CategoryResponse;
-import com.allan.dev.MovieFlix.controller.response.MovieResponse;
 import com.allan.dev.MovieFlix.entity.Category;
 import com.allan.dev.MovieFlix.entity.Movie;
 import com.allan.dev.MovieFlix.entity.Streaming;
-import com.allan.dev.MovieFlix.mapper.CategoryMapper;
-import com.allan.dev.MovieFlix.mapper.MovieMapper;
 import com.allan.dev.MovieFlix.repository.MovieRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
