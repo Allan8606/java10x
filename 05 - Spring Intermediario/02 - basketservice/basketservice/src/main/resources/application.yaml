@@ -10,8 +10,13 @@ spring:
     redis:
       host: localhost
       port: 6379
-      password: sa
+#      password: sa
 
+#configura o tempo em que os dados vão ficar em cache
   cache:
     redis:
       time-to-live: 60000
+
+basket:
+  client:
+    platzi: https://api.escuelajs.co/api/v1
