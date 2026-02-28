@@ -25,12 +25,18 @@ public class EventoEntity{
 
     private String nome;
     private String descricao;
+
+    @Column(name = "identificador_evento")
     private String identificadorEvento;
+
     private LocalDateTime inicioEvento;
     private LocalDateTime fimEvento;
-    private String local;
+    private String localEvento;
     private Integer capacidade;
+
+    @Enumerated(EnumType.STRING)
     private TipoEvento tipo;
+
     private String organizador;
 
 }
