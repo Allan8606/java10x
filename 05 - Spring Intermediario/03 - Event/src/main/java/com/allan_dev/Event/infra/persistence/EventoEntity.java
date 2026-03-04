@@ -3,10 +3,7 @@ package com.allan_dev.Event.infra.persistence;
 
 import com.allan_dev.Event.core.enuns.TipoEvento;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class EventoEntity{
 
     @Id
