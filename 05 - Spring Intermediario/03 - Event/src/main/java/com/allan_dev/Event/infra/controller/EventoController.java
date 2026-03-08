@@ -3,6 +3,7 @@ package com.allan_dev.Event.infra.controller;
 
 import com.allan_dev.Event.core.entity.Evento;
 import com.allan_dev.Event.core.useCase.BuscarEventoUseCase;
+import com.allan_dev.Event.core.useCase.BuscarIdentificadorUseCase;
 import com.allan_dev.Event.core.useCase.CriarEventoUseCase;
 import com.allan_dev.Event.infra.dto.EventoDTO;
 import com.allan_dev.Event.infra.mapper.EventoMapper;
@@ -20,13 +21,15 @@ public class EventoController {
 
     private final CriarEventoUseCase criarEventoUseCase;
     private final BuscarEventoUseCase buscarEventoUseCase;
+    private final BuscarIdentificadorUseCase buscarIdentificadorUseCase;
     private final EventoMapper eventoMapper;
 
     //Construtor
-    public EventoController(CriarEventoUseCase criarEventoUseCase, EventoMapper eventoMapper, BuscarEventoUseCase buscarEventoUseCase) {
+    public EventoController(CriarEventoUseCase criarEventoUseCase, BuscarEventoUseCase buscarEventoUseCase, BuscarIdentificadorUseCase buscarIdentificadorUseCase, EventoMapper eventoMapper) {
         this.criarEventoUseCase = criarEventoUseCase;
-        this.eventoMapper = eventoMapper;
         this.buscarEventoUseCase = buscarEventoUseCase;
+        this.buscarIdentificadorUseCase = buscarIdentificadorUseCase;
+        this.eventoMapper = eventoMapper;
     }
 
     @PostMapping("/criarEvento")
@@ -38,9 +41,6 @@ public class EventoController {
         response.put("Dados do Evento: ", eventoMapper.toEventoDTO(novoEvento));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
-
-
-
     }
 
 
@@ -52,6 +52,14 @@ public class EventoController {
                 .toList();
 
     }
+
+    @GetMapping("/buscarEvento")
+    public ResponseEntity<EventoDTO> buscarEvento(@RequestParam String identificador){
+        Evento execute = buscarIdentificadorUseCase.execute(identificador);
+        return ResponseEntity.ok(eventoMapper.toEventoDTO(execute));
+
+    }
+
 
 
 }

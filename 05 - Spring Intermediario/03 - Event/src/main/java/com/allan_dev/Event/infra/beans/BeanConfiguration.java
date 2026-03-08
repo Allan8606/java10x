@@ -2,10 +2,7 @@ package com.allan_dev.Event.infra.beans;
 
 
 import com.allan_dev.Event.core.gateway.EventoGateway;
-import com.allan_dev.Event.core.useCase.BuscarEventoUseCase;
-import com.allan_dev.Event.core.useCase.BuscarEventoUseCaseImpl;
-import com.allan_dev.Event.core.useCase.CriarEventoUseCase;
-import com.allan_dev.Event.core.useCase.CriarEventoUseCaseImpl;
+import com.allan_dev.Event.core.useCase.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,5 +19,12 @@ public class BeanConfiguration {
     public BuscarEventoUseCase buscarEventos(EventoGateway eventoGateway){
         return new BuscarEventoUseCaseImpl(eventoGateway);
     }
+
+    @Bean
+    public BuscarIdentificadorUseCase buscarIdentificador(EventoGateway eventoGateway){
+        return new BuscarIdentificadorUseCaseImpl(eventoGateway);
+    }
+
+
 
 }

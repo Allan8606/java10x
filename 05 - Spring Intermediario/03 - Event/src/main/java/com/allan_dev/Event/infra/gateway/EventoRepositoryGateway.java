@@ -2,10 +2,11 @@ package com.allan_dev.Event.infra.gateway;
 
 import com.allan_dev.Event.core.entity.Evento;
 import com.allan_dev.Event.core.gateway.EventoGateway;
+import com.allan_dev.Event.infra.exceptions.DuplicateEventException;
+import com.allan_dev.Event.infra.exceptions.EventNotFound;
 import com.allan_dev.Event.infra.mapper.EventoEntityMapper;
 import com.allan_dev.Event.infra.persistence.EventoEntity;
 import com.allan_dev.Event.infra.persistence.EventoRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,13 +17,21 @@ public class EventoRepositoryGateway implements EventoGateway {
     private final EventoRepository eventoRepository;
     private final EventoEntityMapper eventoEntityMapper;
 
+
+
     public EventoRepositoryGateway(EventoRepository eventoRepository, EventoEntityMapper eventoEntityMapper) {
         this.eventoRepository = eventoRepository;
         this.eventoEntityMapper = eventoEntityMapper;
+       ;
     }
 
     @Override
     public Evento criarEvento(Evento evento) {
+
+        if (eventoRepository.existsByIdentificadorEvento(evento.identificadorEvento())){
+            throw new DuplicateEventException("O identificador " + evento.identificadorEvento() + " já está em uso.");
+        }
+
         EventoEntity entity = eventoEntityMapper.toEntity(evento);
         EventoEntity save = eventoRepository.save(entity);
 
@@ -36,6 +45,16 @@ public class EventoRepositoryGateway implements EventoGateway {
                 .map(evento -> eventoEntityMapper.toDomain(evento))
                 .toList();
     }
+
+
+
+    @Override
+    public Evento buscarEventoPorIdentificador(String identificador) {
+        return eventoRepository.findByIdentificadorEvento(identificador)
+                .map(eventoEntityMapper::toDomain)
+                .orElseThrow(() -> new EventNotFound("Evento " + identificador + " não encontrado, provavelmente o evento ainda não foi cadastrado."));
+    }
+
 
 
 }
